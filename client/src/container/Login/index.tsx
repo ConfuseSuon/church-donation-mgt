@@ -14,6 +14,7 @@ import {
 import React, { Fragment, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import loginImage from "../../assets/loginImage.jpg";
+import logo from "../../assets/logoIcon.png";
 import { handleLoginCredentials } from "../../features/authSlice";
 import { useLoginMutation } from "../../services/auth";
 import { useAppDispatch, useAppSelector } from "../../store";
@@ -152,10 +153,22 @@ const Login = () => {
               <Col span={14}>
                 <Card hoverable>
                   <Flex vertical>
-                    <Typography.Title level={2}>Sign In</Typography.Title>
-                    <Typography.Text style={{ color: "grey" }}>
+                    <Flex justify="center">
+                      <img
+                        src={logo}
+                        style={{
+                          width: "10rem",
+                        }}
+                      />
+                    </Flex>
+                    <Typography.Title style={{ textAlign: "center" }} level={2}>
+                      Sign In
+                    </Typography.Title>
+                    <Typography.Text
+                      style={{ color: "grey", textAlign: "center" }}
+                    >
                       Welcome back to{" "}
-                      <Typography.Link>Vile Church</Typography.Link>{" "}
+                      <Typography.Link>Sanctech</Typography.Link>{" "}
                     </Typography.Text>
                   </Flex>
                   <Form

@@ -217,6 +217,10 @@ const DonationForm: React.FC<any> = ({ initialValues }) => {
             name="amount"
             rules={[
               { required: true, message: "Please, enter donation amount" },
+              {
+                pattern: /^[0-9]{1,6}$/,
+                message: "Amount must be up to 6 figures",
+              },
             ]}
             initialValue={initialValues?.amount ?? ""}
           >

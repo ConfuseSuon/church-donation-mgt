@@ -26,6 +26,7 @@ import {
   useState,
 } from "react";
 import certificate from "../../assets/certificate.png";
+import signature from "../../assets/signature.png";
 import CsBreadcumb from "../../component/Breadcumb";
 import { useGetDonationsQuery } from "../../services/donation";
 import { useGetDonorsQuery } from "../../services/donor";
@@ -124,12 +125,17 @@ const Certificate = () => {
 
     toPng(ref.current, { cacheBust: true })
       .then((dataUrl) => {
-        emailCertificate({ imageData: dataUrl });
+        emailCertificate({
+          imageData: dataUrl,
+          email: donorInformation?.email,
+        });
       })
       .catch((err) => {
         console.log(err);
       });
   }, [ref]);
+
+  console.log(donorInformation);
 
   return (
     <Fragment>
@@ -281,6 +287,31 @@ const Certificate = () => {
                     <div
                       style={{
                         position: "absolute",
+                        bottom: "112px",
+                        right: "opx",
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        width: "100%",
+                        fontSize: "22px",
+                        fontWeight: "600",
+                        color: "#353F55",
+                        letterSpacing: "1px",
+                        fontFamily: "serif",
+                        textAlign: "center",
+                        textTransform: "capitalize",
+                      }}
+                    >
+                      <img
+                        src={signature}
+                        alt=""
+                        style={{
+                          height: "4rem",
+                        }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        position: "absolute",
                         bottom: "166px",
                         left: "17px",
                         display: "flex",
@@ -327,7 +358,8 @@ const Certificate = () => {
                     if (
                       donationList &&
                       donorInformation &&
-                      selectedDate &&
+                      selectedDate?.endDate &&
+                      selectedDate?.startDate &&
                       donorList
                     ) {
                       setDisplay(true);

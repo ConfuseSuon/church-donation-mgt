@@ -88,7 +88,7 @@ const Report = () => {
     let totalAmount = 0;
     excelSheetData?.map((item: any, index: number) => {
       const amount = item?.amount;
-      totalAmount += amount; // Calculate total amount
+      totalAmount += +amount; // Calculate total amount
       sheet.addRow({
         donationDate: moment(item?.createAt).format("LL"),
         donorId: item?.donorId,

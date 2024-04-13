@@ -30,9 +30,10 @@ import mailSender from "../utils/nodemailer";
 export const emailCertificate = async (req: Request, res: Response) => {
   try {
     const imageData = req.body.imageData;
+    const email = req.body.email;
 
-    if (!imageData) {
-      return res.status(400).json({ message: "Missing image data" });
+    if (!imageData || !email) {
+      return res.status(400).json({ message: "Missing image or email data" });
     }
 
     // Decode base64 data and convert to buffer
@@ -49,7 +50,7 @@ export const emailCertificate = async (req: Request, res: Response) => {
       if (err) {
         return res.status(500).json({ message: "Error saving image", err });
       }
-      const to = "sonupun500@gmail.com";
+      const to = email;
       const subject = "Church -- Certificate";
       const from = "churchdonation@gmail.com";
       const html = `Keep certificate`;

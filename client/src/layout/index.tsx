@@ -27,7 +27,7 @@ import {
   Outlet,
   useNavigate,
 } from "react-router-dom";
-import logogmail from "../assets/logogmail.png";
+import logo from "../assets/iPhone 8 - 1 (2).png";
 import { handleLogout } from "../features/authSlice";
 import { useValidityCheckQuery } from "../services/auth";
 import { useAppDispatch, useAppSelector } from "../store";
@@ -95,27 +95,25 @@ const AppLayout = () => {
             height: "4rem",
             padding: "0 1rem",
             marginBottom: "1rem",
+            marginLeft: ".6rem",
             marginTop: "1rem",
             boxShadow: "0 4px 2px -2px rgba(0, 0, 0, 0.2)",
           }}
           justify={collapsed ? "center" : "space-between"}
           align="center"
-          gap={"10px"}
         >
           <Button
             type="text"
             icon={
               collapsed ? (
-                <MenuUnfoldOutlined style={{ fontSize: "22px" }} />
+                <MenuUnfoldOutlined style={{ fontSize: "20px" }} />
               ) : (
-                <MenuFoldOutlined style={{ fontSize: "22px" }} />
+                <MenuFoldOutlined style={{ fontSize: "20px" }} />
               )
             }
             onClick={() => setCollapsed(!collapsed)}
           />
-          {!collapsed ? (
-            <img src={logogmail} style={{ height: "2.6rem" }} />
-          ) : null}
+          {!collapsed ? <img src={logo} style={{ height: "2.4rem" }} /> : null}
         </Flex>
 
         <div

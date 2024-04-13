@@ -9,7 +9,7 @@ export const sendReceipt = async (
   try {
     const { body } = req;
 
-    const to = "sonupun500@gmail.com";
+    const to = body?.email;
     const subject = "Church Donation Receipt";
     const from = "churchdonation@gmail.com";
     const html = `<div style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5;">
@@ -20,7 +20,7 @@ export const sendReceipt = async (
         </div>
         <div style="line-height: 1.5; margin-bottom: 15px;">
             <p>Dear ${body?.full_name},</p>
-            <p>We at [Church Name] are incredibly grateful for your recent donation. Your support will help us continue to serve our community.</p>
+            <p>We are incredibly grateful for your recent donation. Your support will help us continue to serve our community.</p>
             <p>Thanks to the kindness of people like you, we can continue to fulfill our mission.</p>
             <table style="width: 100%; margin-bottom: 20px;">
                 <tr>
@@ -37,8 +37,8 @@ export const sendReceipt = async (
         </div>
         <div style="text-align: right;">
             <p style="margin-top: 20px;">Sincerely,</p>
-            <p>Mr.John Moorey</p>
-            <p>Vile Church</p>
+            <p>Sanchtech</p>
+            <p>Church Donation Management</p>
         </div>
     </div>
 </div>`;

@@ -93,7 +93,13 @@ const DonorForm: React.FC<any> = ({ initialValues }) => {
           <Form.Item
             label="Contact Number"
             name="contactNumber"
-            rules={[{ required: true, message: "Please, enter contact" }]}
+            rules={[
+              { required: true, message: "Please, enter contact" },
+              {
+                pattern: /^[0-9]{10}$/,
+                message: "Contact number must be a 10-digit number",
+              },
+            ]}
             initialValue={initialValues?.contactNumber ?? ""}
           >
             <Input placeholder="Enter contact number" />

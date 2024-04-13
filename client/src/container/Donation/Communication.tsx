@@ -106,7 +106,7 @@ const Communication = () => {
                       full_name: record?.donorDetails?.full_name,
                       amount: `$${record?.amount}.00`,
                       donationDate: moment(record?.donationDate).format("LL"),
-                      email: record?.email,
+                      email: record?.donorDetails?.email,
                     });
                   }}
                 />{" "}
