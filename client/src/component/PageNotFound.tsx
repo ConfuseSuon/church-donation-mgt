@@ -1,4 +1,6 @@
+import { Col, Flex, Row, Typography } from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import notFoundImg from "../assets/pagenotfound.svg";
 
 interface PageNotFoundProps {
@@ -7,31 +9,33 @@ interface PageNotFoundProps {
 }
 
 const PageNotFound = (props: PageNotFoundProps): React.ReactElement => {
+  const navigate = useNavigate();
   return (
-    <>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          minHeight: "85vh",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <img src={notFoundImg} alt="" />
-          <h1>{props.status ? props.status : 404}</h1>
+    <Row justify={"center"} align={"middle"}>
+      <Col span={24} style={{ marginTop: "7rem" }}>
+        <Flex vertical justify="center" align="center" gap={20}>
+          <img
+            src={notFoundImg}
+            alt=""
+            style={{
+              objectFit: "contain",
+              height: "50vh",
+              width: "100%",
+            }}
+          />
           <p>Page Not Found</p>
-        </div>
-      </div>
-    </>
+          <p>
+            Navigate back to{" "}
+            <Typography.Link
+              style={{ marginLeft: ".2rem" }}
+              onClick={() => navigate("/")}
+            >
+              Home
+            </Typography.Link>{" "}
+          </p>
+        </Flex>
+      </Col>
+    </Row>
   );
 };
 

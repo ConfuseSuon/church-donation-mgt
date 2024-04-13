@@ -12,10 +12,11 @@ import {
 import { useGetDonationsQuery } from "../../services/donation";
 import { useGetDonorsQuery } from "../../services/donor";
 
-const DonationChart: React.FC = () => {
-  const { data: donationList, isLoading: donationLoading } =
-    useGetDonationsQuery();
+interface IProps {
+  donationList: any;
+}
 
+const DonationChart: React.FC<IProps> = ({ donationList }) => {
   const data = useMemo(() => {
     if (!donationList) return [];
 

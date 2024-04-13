@@ -168,7 +168,9 @@ const Dashboard = () => {
             >
               <Row>
                 <Col span={24}>
-                  <DonationChart />
+                  <DonationChart
+                    donationList={donationList ? donationList : null}
+                  />
                 </Col>
               </Row>
             </Card>
@@ -185,7 +187,7 @@ const Dashboard = () => {
             >
               <Row>
                 <Col span={24}>
-                  <DonorChart />
+                  <DonorChart donorList={donorList ? donationList : null} />
                 </Col>
               </Row>
             </Card>

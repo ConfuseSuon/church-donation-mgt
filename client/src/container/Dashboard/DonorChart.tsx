@@ -15,9 +15,11 @@ import {
 } from "recharts";
 import { useGetDonorsQuery } from "../../services/donor";
 
-const DonorChart: React.FC = () => {
-  const { data: donorList, isLoading: donorLoading } = useGetDonorsQuery();
+interface IProps {
+  donorList: any;
+}
 
+const DonorChart: React.FC<IProps> = ({ donorList }) => {
   const data = useMemo(() => {
     if (!donorList) return [];
     const currentDate = moment();
