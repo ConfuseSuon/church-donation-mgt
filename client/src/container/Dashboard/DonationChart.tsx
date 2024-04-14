@@ -9,8 +9,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { useGetDonationsQuery } from "../../services/donation";
-import { useGetDonorsQuery } from "../../services/donor";
 
 interface IProps {
   donationList: any;

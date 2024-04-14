@@ -34,6 +34,9 @@ const donationSchema: Schema<IDonation> = new mongoose.Schema(
     donorDetails: {
       type: Object,
     },
+    donationType: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

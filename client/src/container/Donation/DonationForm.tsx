@@ -36,7 +36,13 @@ const DonationForm: React.FC<any> = ({ initialValues }) => {
     initialValues ? initialValues?.donorId : null
   );
   const [selectedMode, setSelectedMode] = useState(
-    initialValues?.mode === "Card Payment" ? "Card Payment" : ""
+    initialValues?.mode?.length > 0 ? initialValues?.mode : ""
+  );
+
+  const [selectedType, setSelectedType] = useState(
+    initialValues?.donationType?.length > 0
+      ? initialValues?.donationType
+      : "Regular Offering"
   );
 
   const todayYear = new Date().getFullYear();
@@ -213,6 +219,27 @@ const DonationForm: React.FC<any> = ({ initialValues }) => {
 
         <Col span={screen?.xs ? 24 : 6}>
           <Form.Item
+            label="Donation Type"
+            name="donationType"
+            rules={[
+              { required: true, message: "Please, select donation type" },
+            ]}
+            initialValue={selectedType ?? null}
+          >
+            <Select
+              allowClear
+              placeholder="Select donation type"
+              onChange={(value: string) => setSelectedType(value)}
+              options={[
+                { value: "Regular Offering", label: "Regular Offering" },
+                { value: "Special Gift", label: "Special Gift" },
+              ]}
+            />
+          </Form.Item>
+        </Col>
+
+        <Col span={screen?.xs ? 24 : 6}>
+          <Form.Item
             label="Donation Amount"
             name="amount"
             rules={[
@@ -260,10 +287,17 @@ const DonationForm: React.FC<any> = ({ initialValues }) => {
               allowClear
               placeholder="Select payment mode"
               onChange={(value: string) => setSelectedMode(value)}
-              options={[
-                { value: "Cash", label: "Cash" },
-                { value: "Card Payment", label: "Card Payment" },
-              ]}
+              options={
+                selectedType === "Special Gift"
+                  ? [
+                      { value: "Food", label: "Food" },
+                      { value: "Clothes", label: "Clothes" },
+                    ]
+                  : [
+                      { value: "Cash", label: "Cash" },
+                      { value: "Card Payment", label: "Card Payment" },
+                    ]
+              }
             />
           </Form.Item>
         </Col>

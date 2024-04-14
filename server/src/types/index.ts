@@ -27,4 +27,5 @@ export interface IDonation extends Document {
   note?: string;
   donationDate: string;
   donorDetails?: object;
+  donationType: string;
 }

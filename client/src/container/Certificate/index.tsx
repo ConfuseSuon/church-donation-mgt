@@ -46,7 +46,7 @@ const Certificate = () => {
     endDate: null,
   });
   const [display, setDisplay] = useState(false);
-
+  const [churchName, setChurchName] = useState("Enter Church Name");
   const { data: donorList, isLoading: donorLoading } = useGetDonorsQuery();
   const { data: donationList, isLoading: donationLoading } =
     useGetDonationsQuery();
@@ -71,7 +71,7 @@ const Certificate = () => {
       (donor: any) => donor?.donorId === selectedDonor
     );
     return matchedDonorData[0];
-  }, [selectedDonor]);
+  }, [selectedDonor, donationList]);
 
   const donorIdOption = useMemo(() => {
     if (!donorList) return [];
@@ -119,6 +119,8 @@ const Certificate = () => {
     });
   };
   const sendCertificate = useCallback(() => {
+    console.log(donorInformation);
+    if (!donorInformation?.email) return;
     if (ref.current === null) {
       return;
     }
@@ -133,9 +135,24 @@ const Certificate = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [ref]);
+  }, [ref, selectedDonor, donorInformation]);
 
-  console.log(donorInformation);
+  const downloadCertificate = useCallback(() => {
+    if (ref.current === null) {
+      return;
+    }
+
+    toPng(ref.current, { cacheBust: true })
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.download = `${donorInformation?.full_name ?? "certificate"}.png`;
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [ref, donorInformation]);
 
   return (
     <Fragment>
@@ -177,6 +194,25 @@ const Certificate = () => {
                 >
                   <RangePicker onChange={handleDateChange} />
                 </Form.Item>{" "}
+                <Form.Item
+                  name="name"
+                  label="Church Name"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your church name!",
+                    },
+                  ]}
+                  initialValue={churchName}
+                >
+                  <Input
+                    placeholder="Enter church name"
+                    maxLength={25}
+                    value={churchName}
+                    defaultValue={churchName}
+                    onChange={(e: any) => setChurchName(e.target.value)}
+                  />
+                </Form.Item>
               </Flex>
             </Col>
             <Col span={24}>
@@ -249,8 +285,27 @@ const Certificate = () => {
                     <div
                       style={{
                         position: "absolute",
-                        bottom: "302px",
-                        left: "2px",
+                        bottom: "445px",
+                        left: "-10px",
+                        display: "flex",
+                        justifyContent: "center",
+                        width: "1050px",
+                        fontSize: "16px",
+                        fontWeight: "600",
+                        color: "#353F55",
+                        letterSpacing: "1px",
+                        fontFamily: "serif",
+                        textAlign: "center",
+                        textTransform: "capitalize",
+                      }}
+                    >
+                      {churchName}
+                    </div>
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: "305px",
+                        left: "-10px",
                         display: "flex",
                         justifyContent: "center",
                         width: "1050px",
@@ -312,8 +367,8 @@ const Certificate = () => {
                     <div
                       style={{
                         position: "absolute",
-                        bottom: "166px",
-                        left: "17px",
+                        bottom: "170px",
+                        left: "16px",
                         display: "flex",
                         justifyContent: "center",
                         width: "100%",
@@ -367,6 +422,13 @@ const Certificate = () => {
                   }}
                 >
                   Generate Certificate
+                </Button>
+                <Button
+                  type="dashed"
+                  disabled={!display}
+                  onClick={downloadCertificate}
+                >
+                  Download
                 </Button>
                 <Button
                   type="primary"
